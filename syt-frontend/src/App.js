@@ -1,7 +1,7 @@
 import React from 'react';
-import { ListThoughtsComponent } from './features/thought-list/thought-list.component';
 import { HeaderMegaMenu } from './features/ui/header';
 import { FooterLinks } from './features/ui/footer';
+import { MainPage } from './pages/main';
 import './App.css';
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <HeaderMegaMenu></HeaderMegaMenu>
-      <ListThoughtsComponent></ListThoughtsComponent>
+      <MainPage></MainPage>
       <FooterLinks data={data}></FooterLinks>
     </>
         
