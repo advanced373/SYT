@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.Resource;
 
@@ -32,17 +33,24 @@ var scopeRequiredByApi = app.Configuration["AzureAd:Scopes"] ?? "";
 
 app.MapGet("/thoughts", (HttpContext httpContext) =>
 {
-    var thoughts = Enumerable.Range(1, 12).Select(index =>
-        new Thought
-        (
-            "Test data",
-            "10.10.2020",
-            new Author("Mihai Stoica", "image.png")
-        ))
-        .ToArray();
+    List<Thought> thoughts = new List<Thought>();
+    IEnumerable<string> lines = File.ReadLines("./database.txt");
+    foreach (var line in lines)
+    {
+        var values = line.Split(',');
+        thoughts.Add(new Thought(values[0], values[1], new Author(values[2], values[3])));
+    }
     return thoughts;
 })
 .WithName("GetThoughts")
+.WithOpenApi();
+
+app.MapPost("/thoughts", (Thought thought) =>
+{
+    File.AppendAllText("./database.txt", $"\n{thought.Body},{thought.PlacedAt},{thought.author.name},{thought.author.image}");
+    return;
+})
+.WithName("AddThought")
 .WithOpenApi();
 
 app.Run();

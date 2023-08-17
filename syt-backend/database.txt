@@ -1,0 +1,9 @@
+﻿Test data,10.10.2020,Mihai Stoica,image.png
+Test data,10.10.2020,Mihai Stoica,image.png
+Test data,10.10.2020,Mihai Stoica,image.png
+Test data,10.10.2020,Mihai Stoica,image.png
+Test data,10.10.2020,Mihai Stoica,image.png
+Test data,10.10.2020,Mihai Stoica,image.png
+Test data,10.10.2020,Mihai Stoica,image.png
+string,string,string,string
+string,string,string,string
