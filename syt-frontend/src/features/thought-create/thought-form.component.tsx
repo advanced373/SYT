@@ -1,5 +1,6 @@
-import { Textarea, Button, Group, Box } from '@mantine/core';
+import { Button, Group, Box, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
 import axios from 'axios';
 
 export const ThoughtFormComponent = ()=>{
@@ -9,7 +10,12 @@ export const ThoughtFormComponent = ()=>{
         },
       });
     const createThought = (formBody: any)=>{
-      axios.post("https://localhost:7249/thoughts", formBody).then( res=> console.log("added done"));
+      formBody["placedAt"]="19.08.2023";
+      formBody["author"]={"name": "Stoica Mihai", "image": "image.png"};
+      axios.post("https://localhost:7249/thoughts", formBody).then( res=> notifications.show({
+        title: 'Success',
+        message: 'Thought was added sucessfully.',
+      }));
     }
       return (
         <Box maw={300} mx="auto">
