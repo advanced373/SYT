@@ -1,25 +1,19 @@
 import { Button, Group, Box, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { add, selectThoughts } from './thoughtSlice';
 
 export const ThoughtFormComponent = ()=>{
+  const dispatch = useDispatch();
     const form = useForm({
         initialValues: {
           body: ''
         },
       });
-    const createThought = (formBody: any)=>{
-      formBody["placedAt"]="19.08.2023";
-      formBody["author"]={"name": "Stoica Mihai", "image": "image.png"};
-      axios.post("https://localhost:7249/thoughts", formBody).then( res=> notifications.show({
-        title: 'Success',
-        message: 'Thought was added sucessfully.',
-      }));
-    }
+    
       return (
         <Box maw={300} mx="auto">
-          <form onSubmit={form.onSubmit((values) => createThought(values))} onReset={form.onReset}>
+          <form onSubmit={form.onSubmit((values) => dispatch(add(values)))} onReset={form.onReset}>
             <Textarea
               label="Write your thought"
               placeholder="Message"
