@@ -22,16 +22,6 @@ export const counterSlice = createSlice({
   reducers: {
     add: (state, values) => {console.log(values); state.thoughts = values.payload;}
   },
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(addAsync.pending, (state) => {
-//         state.status = 'loading';
-//       })
-//       .addCase(addAsync.fulfilled, (state, action) => {
-//         state.status = 'idle';
-//         state.thoughts += action.payload;
-//       });
-//   },
 });
 export const selectThoughts = (state: {thoughts: Thought[], status: string}) => state.thoughts;
 export const { add } = counterSlice.actions;
