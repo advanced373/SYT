@@ -1,10 +1,9 @@
 import { Button, Group, Box, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useSelector, useDispatch } from 'react-redux';
-import { add, selectThoughts } from './thoughtSlice';
+import { add, selectThoughts, store } from './thoughtSlice';
+import { createThought } from './thought-createAPI';
 
 export const ThoughtFormComponent = ()=>{
-  const dispatch = useDispatch();
     const form = useForm({
         initialValues: {
           body: ''
@@ -13,7 +12,7 @@ export const ThoughtFormComponent = ()=>{
     
       return (
         <Box maw={300} mx="auto">
-          <form onSubmit={form.onSubmit((values) => dispatch(add(values)))} onReset={form.onReset}>
+          <form onSubmit={form.onSubmit(async (values) => {var res =await createThought(values); store.dispatch(add(res))})} onReset={form.onReset}>
             <Textarea
               label="Write your thought"
               placeholder="Message"

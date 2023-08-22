@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { combineReducers, createSlice, createStore } from '@reduxjs/toolkit';
 import { createThought } from './thought-createAPI';
 import { Thought } from '../thought-list/model/thought.model';
 
@@ -7,21 +7,17 @@ const initialState: {thoughts: Thought[], status: string} = {
   status: 'no'
 };
 
-export const addAsync = createAsyncThunk(
-  'thought/add',
-  async (values) => {
-    console.log(values);
-    const response = await createThought(values);
-    return response;
-  }
-);
-
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    add: (state, values) => {console.log(values); state.thoughts = values.payload;}
+    add: (state, values) => {state.thoughts.push(values.payload)}
   },
 });
 export const selectThoughts = (state: {thoughts: Thought[], status: string}) => state.thoughts;
 export const { add } = counterSlice.actions;
+
+const reducer = combineReducers({
+  counter: counterSlice.reducer,
+})
+export const store = createStore(reducer)
