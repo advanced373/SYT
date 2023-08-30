@@ -88,6 +88,9 @@ import {
               <a href="#" className={classes.link}>
                 Thoughts
               </a>
+              <a href="#" className={classes.link}>
+                Administrator
+              </a>
             </Group>
   
             <Group className={classes.hiddenMobile}>

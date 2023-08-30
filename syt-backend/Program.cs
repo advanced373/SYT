@@ -30,11 +30,32 @@ app.UseCors(
 app.UseHttpsRedirection();
 
 var scopeRequiredByApi = app.Configuration["AzureAd:Scopes"] ?? "";
+app.MapGet("/users", (HttpContext httpContext) =>
+{
+    List<User> thoughts = new List<User>();
+    IEnumerable<string> lines = File.ReadLines("./database/users.txt");
+    foreach (var line in lines)
+    {
+        var values = line.Split(',');
+        thoughts.Add(new User(values[0], values[1], values[2]));
+    }
+    return thoughts;
+})
+.WithName("GetUsers")
+.WithOpenApi();
+
+app.MapPost("/users", (User user) =>
+{
+    File.AppendAllText("./database/users.txt", $"\n{user.username},{user.email},{user.password}");
+    return;
+})
+.WithName("AddUser")
+.WithOpenApi();
 
 app.MapGet("/thoughts", (HttpContext httpContext) =>
 {
     List<Thought> thoughts = new List<Thought>();
-    IEnumerable<string> lines = File.ReadLines("./database.txt");
+    IEnumerable<string> lines = File.ReadLines("./database/thoughts.txt");
     foreach (var line in lines)
     {
         var values = line.Split(',');
@@ -47,7 +68,7 @@ app.MapGet("/thoughts", (HttpContext httpContext) =>
 
 app.MapPost("/thoughts", (Thought thought) =>
 {
-    File.AppendAllText("./database.txt", $"\n{thought.Body},{thought.PlacedAt},{thought.author.name},{thought.author.image}");
+    File.AppendAllText("./database/thoughts.txt", $"\n{thought.body},{thought.placedAt},{thought.author.name},{thought.author.image}");
     return;
 })
 .WithName("AddThought")
@@ -55,5 +76,7 @@ app.MapPost("/thoughts", (Thought thought) =>
 
 app.Run();
 
-internal record Thought(string Body, string PlacedAt, Author author);
+internal record User(string username, string email, string password);
+internal record Thought(string body, string placedAt, Author author);
 internal record Author(string name, string image);
+

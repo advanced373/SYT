@@ -12,13 +12,14 @@ import {
   Anchor,
   Stack,
 } from '@mantine/core';
+import { createUser } from './authentication-API';
 
 export function AuthenticationForm(props: PaperProps) {
   const [type, toggle] = useToggle(['login', 'register']);
   const form = useForm({
     initialValues: {
       email: '',
-      name: '',
+      username: '',
       password: '',
       terms: true,
     },
@@ -32,19 +33,20 @@ export function AuthenticationForm(props: PaperProps) {
   {
 
   }
+
   return (
     <Paper radius="md" p="xl" withBorder {...props}>
       <Text size="lg" weight={500}>
         Welcome to SYT
       </Text>
 
-      <form onSubmit={form.onSubmit(() => {})}>
+      <form onSubmit={form.onSubmit((values) => {createUser(values)})}>
         <Stack>
           {type === 'register' && (
             <TextInput
               label="Name"
               placeholder="Your name"
-              value={form.values.name}
+              value={form.values.username}
               onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
               radius="md"
             />

@@ -1,0 +1,3 @@
+﻿Mihai Stoica,mihaistoica1998@gmail.com,password
+Alexandru Stoica,alexandrustoica1998@gmail.com,password
+,andreimihai1998@gmail.com,password1
