@@ -24,3 +24,26 @@ export const createUser = (formBody: User)=>{
     }
     );
 }
+
+export const login = (formBody: User)=>{
+    return axios.post("https://localhost:7249/users", formBody).then( res=> 
+    {
+        if(res.status === 200){
+            notifications.show({
+                title: 'Success',
+                message: 'We are login you in a moment.',
+                style: { backgroundColor: 'green' },
+              });
+              return formBody;
+        }
+        else{
+            notifications.show({
+                title: 'Error',
+                message: 'Email or password is not correct.',
+                style: { backgroundColor: 'red' },
+              });
+              return null;
+        }
+    }
+    );
+}

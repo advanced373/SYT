@@ -51,7 +51,29 @@ app.MapPost("/users", (User user) =>
 })
 .WithName("AddUser")
 .WithOpenApi();
+app.MapPost("/users", (Credentials credentials) =>
+{
+    using (var reader = new System.IO.StreamReader("./database/users.txt"))
+    {
+        while (!reader.EndOfStream)
+        {
+            var line = reader.ReadLine();
 
+            if (line.Contains(credentials.email))
+            {
+                if (line.Split(',')[2] == credentials.password)
+                {
+                    return true;
+                }
+            }
+        }
+
+        reader.Close();
+    }
+    return false;
+})
+.WithName("CheckUser")
+.WithOpenApi();
 app.MapGet("/thoughts", (HttpContext httpContext) =>
 {
     List<Thought> thoughts = new List<Thought>();
@@ -77,6 +99,7 @@ app.MapPost("/thoughts", (Thought thought) =>
 app.Run();
 
 internal record User(string username, string email, string password);
+internal record Credentials (string email, string password);
 internal record Thought(string body, string placedAt, Author author);
 internal record Author(string name, string image);
 
