@@ -30,7 +30,7 @@ app.UseCors(
 app.UseHttpsRedirection();
 
 var scopeRequiredByApi = app.Configuration["AzureAd:Scopes"] ?? "";
-app.MapGet("/users", (HttpContext httpContext) =>
+app.MapGet("/users/add", (HttpContext httpContext) =>
 {
     List<User> thoughts = new List<User>();
     IEnumerable<string> lines = File.ReadLines("./database/users.txt");
@@ -51,7 +51,7 @@ app.MapPost("/users", (User user) =>
 })
 .WithName("AddUser")
 .WithOpenApi();
-app.MapPost("/users", (Credentials credentials) =>
+app.MapPost("/users/login", (Credentials credentials) =>
 {
     using (var reader = new System.IO.StreamReader("./database/users.txt"))
     {

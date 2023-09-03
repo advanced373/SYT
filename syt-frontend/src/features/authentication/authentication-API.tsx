@@ -3,7 +3,7 @@ import { notifications } from '@mantine/notifications';
 import { User } from "./model/user.model";
 
 export const createUser = (formBody: User)=>{
-    return axios.post("https://localhost:7249/users", formBody).then( res=> 
+    return axios.post("https://localhost:7249/users/add", formBody).then( res=> 
     {
         if(res.status === 200){
             notifications.show({
@@ -26,7 +26,7 @@ export const createUser = (formBody: User)=>{
 }
 
 export const login = (formBody: User)=>{
-    return axios.post("https://localhost:7249/users", formBody).then( res=> 
+    return axios.post("https://localhost:7249/users/login", formBody).then( res=> 
     {
         if(res.status === 200){
             notifications.show({
