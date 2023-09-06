@@ -1,4 +1,4 @@
-﻿Mihai Stoica,mihaistoica1998@gmail.com,password
-Alexandru Stoica,alexandrustoica1998@gmail.com,password
-Andre Mihai,andreimihai1998@gmail.com,password1
-Mihai,mihai@email.com,passpass
+﻿Mihai Stoica,mihaistoica1998@gmail.com,password,User
+Alexandru Stoica,alexandrustoica1998@gmail.com,password,User
+Andre Mihai,andreimihai1998@gmail.com,password1,User
+Mihai,mihai@email.com,passpass,User
