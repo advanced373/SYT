@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeaderMegaMenu } from './features/ui/header';
 import { FooterLinks } from './features/ui/footer';
-import { MainPage } from './pages/main';
+import { Router } from './features/routing/router';
 import './App.css';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
@@ -12,7 +12,7 @@ function App() {
     <MantineProvider withNormalizeCSS withGlobalStyles>
       <Notifications />
       <HeaderMegaMenu></HeaderMegaMenu>
-      <MainPage></MainPage>
+      <Router></Router>
       <FooterLinks data={data}></FooterLinks>
     </MantineProvider>
         

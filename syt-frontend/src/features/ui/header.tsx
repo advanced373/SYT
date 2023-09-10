@@ -82,10 +82,10 @@ import {
           <Group position="apart" sx={{ height: '100%' }}>
   
             <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}>
-              <a href="#" className={classes.link}>
+              <a href="/" className={classes.link}>
                 Home
               </a>
-              <a href="#" className={classes.link}>
+              <a href="/" className={classes.link}>
                 Thoughts
               </a>
               <a href="#" className={classes.link}>
@@ -94,8 +94,16 @@ import {
             </Group>
   
             <Group className={classes.hiddenMobile}>
-              <Button variant="default">Log in</Button>
-              <Button>Sign up</Button>
+              <Button variant="default">
+                <a href="#" className={classes.link}>
+                Login
+              </a>
+              </Button>
+              <Button>
+                <a href="#" className={classes.link}>
+                Register
+              </a>
+              </Button>
             </Group>
   
             <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />

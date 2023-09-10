@@ -5,9 +5,8 @@ import { ListThoughtsComponent } from "../features/thought-list/thought-list.com
 export const MainPage = () =>{
     return (
         <>
-        {/* <ThoughtFormComponent></ThoughtFormComponent>
-        <ListThoughtsComponent></ListThoughtsComponent> */}
-        <AuthenticationForm withBorder={true} w={"50%"} m={"auto"}></AuthenticationForm>
+        <ThoughtFormComponent></ThoughtFormComponent>
+        <ListThoughtsComponent></ListThoughtsComponent>
         </>
     
     );
