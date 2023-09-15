@@ -13,9 +13,15 @@ import {
   Stack,
 } from "@mantine/core";
 import { createUser, login } from "./authentication-API";
+import { useContext } from "react";
+import { GlobalContext } from "../context/globalContext";
+import { useNavigate } from "react-router-dom";
+import { jwtInterceptor } from "./jwtInterceptor";
 
 export function AuthenticationForm(props: PaperProps) {
   const [type, toggle] = useToggle(["login", "register"]);
+  const {token, setToken} = useContext(GlobalContext);
+  let navigate = useNavigate();
   const form = useForm({
     initialValues: {
       email: "",
@@ -41,12 +47,16 @@ export function AuthenticationForm(props: PaperProps) {
       </Text>
 
       <form
-        onSubmit={form.onSubmit((values) => {
+        onSubmit={form.onSubmit(async (values) => {
           if (type == "register"){
           createUser(values);
+          navigate('/');
           }
           else{
-            login(values);
+          var newToken = await login(values);
+          jwtInterceptor(newToken);
+          setToken(newToken?.data);
+          navigate('/');
           }
         })}
       >
